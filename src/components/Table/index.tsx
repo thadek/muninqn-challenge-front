@@ -105,6 +105,7 @@ const Table: React.FC<TableProps> = ({
                 className='d-flex'
             >
                 <DataGrid
+                    
                     onRowClick={onRowClick ? onRowClick : () => {}}
                     rows={
                         disabledSearch

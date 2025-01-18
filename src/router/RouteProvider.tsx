@@ -19,12 +19,14 @@ const RouteProvider = () => {
           <Route element={<S.ManagementUsuarios />} path="/administrador/roles-permisos/usuarios" />
           */}
 
+          <Route path="/examen" element={<S.Examen />} />
+
           {__DEV__ && <Route path="/_viewcom" element={<S.DevScreen />} />}
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route path="/login" element={<S.Login />} />
-        <Route path="/ejemplo" element={<S.PageExample />} />
+        {/*<Route path="/ejemplo" element={<S.PageExample />} /> */}
       </Routes>
     </HashRouter>
   );

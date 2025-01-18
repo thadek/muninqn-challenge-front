@@ -15,7 +15,7 @@ export const postForm = async (
     const { data, error } = response.data
 
     if (data) {
-        // console.log("Data:", data)
+         console.log("Data:", data)
         return data
         
     }

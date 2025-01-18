@@ -21,18 +21,18 @@ const Login = () => {
     const nav = useNavigate()
 
     const login = async (form: any) => {
-        const data = await postForm("internal_login", form, showSpinner)
-        if (data) {
+        const data = await postForm("auth/login", form, showSpinner)
+        if (data && data.token) {
             setStorage(data)
             ua.setStore(data)
-            nav(`/`)
+            window.location.href = "/"
         }
     }
 
     return (
-        <div className='container pt-5'>
-            <div className='offset-md-3 col-md-6 offset-sm-1 col-sm-10 bg-white rounded my-auto shadow-lg'>
-                <div className='offset-md-2 col-md-6 offset-sm-1 col-sm-10'>
+        <div className='container d-flex justify-content-center align-items-center vh-100'>
+            <div className='col-md-6 col-sm-10 bg-white rounded shadow-lg p-4'>
+                <div className='text-center'>
                     <img
                         alt='Logo Neuquén Capital'
                         height='80%'
@@ -49,9 +49,9 @@ const Login = () => {
                             label: "form-label text-muted",
                             input: "form-control form-control shadow-sm",
                         }}
-                        invalidMsg={formState.errors.email?.message}
+                        invalidMsg={formState.errors.identifier?.message}
                         label={"Correo electronico / DNI *"}
-                        register={{ ...register("email") }}
+                        register={{ ...register("identifier") }}
                         placeholder='usuario@gmail.com / 99.999.999'
                     />
                     <Input

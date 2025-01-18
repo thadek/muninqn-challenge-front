@@ -10,6 +10,10 @@ export interface Store {
 
 export interface User {
     id: number
+    email: string
+    name: string
+    last_name: string
+    dni: string
     persona: Person
     permissions: Permission[]
     roles: Role[]
