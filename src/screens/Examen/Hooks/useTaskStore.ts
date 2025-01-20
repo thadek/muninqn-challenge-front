@@ -20,6 +20,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   loading: false,
   error: null,
   refresh: false,
+  dismissError: () => set({ error: null }),
 
 
   fetchTasks: async (status: string[] = [],onlyAssigned:number = 0) => {  // Recibe un array de estados (por defecto vacío)

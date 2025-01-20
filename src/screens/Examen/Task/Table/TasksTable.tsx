@@ -10,7 +10,7 @@ import TaskUsersModal from "../Modal/TaskUsersModal";
 import { toast } from "react-toastify";
 
 export default function TaskTable() {
-    const { tasks, loading, error } = useTaskStore();
+    const { tasks, loading, error, dismissError } = useTaskStore();
 
     const [modalState, setModalState] = useState({
         showEditModal: false,
@@ -41,6 +41,9 @@ export default function TaskTable() {
 
     if(error){
         toast.error( error);
+        dismissError();
+
+        
     }
 
     return (
