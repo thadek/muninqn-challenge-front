@@ -6,14 +6,10 @@ import TaskList from "./TaskList";
 import { Button } from "react-bootstrap";
 import { MuniSpinner } from "../../../components";
 import { Card,  Stack, Typography } from "@mui/material";
-import { useContext } from "react";
-import { UserContext } from "../../../context/UserWrapper";
 
 export default function UserContainer({isAdmin}:{isAdmin:boolean}) {
 
     const { tasks, fetchTasks, refresh, loading, error } = useTaskStore();
-
-  
 
 
     useEffect(() => {

@@ -20,14 +20,14 @@ type RFC = React.FC<{
 }>;
 
 const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
-    const { register, handleSubmit, formState, setValue, watch } = useForm({
+    const { register, handleSubmit, formState, setValue } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
             title: task?.title || "",
             description: task?.description || "",
             users: task?.users?.map((user) => user.id) || [],
-            status: task?.status || "pendiente",    
-            priority: task?.priority || "media", 
+            status: task?.status as "pendiente" | "en progreso" | "completada" || "pendiente",    
+            priority: task?.priority as "alta"|"media"|"baja" || "media", 
         },
     });
 
@@ -47,11 +47,11 @@ const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
         }
 
         if (task?.status) {
-            setValue("status", task.status);
+            setValue("status", task.status as "pendiente" | "en progreso" | "completada");
         }
 
         if (task?.priority) {
-            setValue("priority", task.priority);
+            setValue("priority", task.priority as "alta" | "media" | "baja");
         }
     }, [task, setValue]);
 
