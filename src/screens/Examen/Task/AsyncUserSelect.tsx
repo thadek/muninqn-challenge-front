@@ -15,7 +15,7 @@ interface AsyncUserSelectProps {
     onChange: (selected: Option[]) => void;
 }
 
-const formatOptions = (items: User[]) => {
+export const formatOptions = (items: User[]) => {
     return items.map((item) => ({
         value: item.id,
         label: `${item.name} ${item.last_name} - ${item.email} - ${item.dni}`,

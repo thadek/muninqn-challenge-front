@@ -1,28 +1,28 @@
 
 import { useTaskStore } from "../Hooks/useTaskStore";
-import { useContext } from "react";
-import { UserContext } from "../../../context/UserWrapper";
-
-import { Cached, Refresh, Task } from "@mui/icons-material"
-
+import { Cached, Task } from "@mui/icons-material"
 import { useEffect } from "react";
 import TaskList from "./TaskList";
 import { Button } from "react-bootstrap";
 import { MuniSpinner } from "../../../components";
-import { Card, CardHeader, Stack, Typography } from "@mui/material";
+import { Card,  Stack, Typography } from "@mui/material";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserWrapper";
 
-export default function UserContainer() {
+export default function UserContainer({isAdmin}:{isAdmin:boolean}) {
 
     const { tasks, fetchTasks, refresh, loading, error } = useTaskStore();
 
+  
+
 
     useEffect(() => {
-        fetchTasks([]);
+        isAdmin ? fetchTasks(['pendiente','en progreso'], 1) : fetchTasks(['pendiente','en progreso'],0);
     }, [refresh]);
 
 
     if(error){
-        return <div className="alert alert-danger">Ocurrió un error al cargar las tareas. </div>
+        return <div className="alert alert-danger">Ocurrió un error: {error} </div>
     }
 
     return (
@@ -31,8 +31,8 @@ export default function UserContainer() {
 
 
             <div className="d-flex gap-3">
-                <Button onClick={() => fetchTasks(['pendiente', 'en progreso'])} variant="primary"> <Cached/> Ver tareas activas </Button>
-                <Button onClick={() => fetchTasks(['completada'])} variant="primary"> <Task /> Ver tareas completadas</Button>  </div>
+                <Button onClick={() => fetchTasks(['pendiente', 'en progreso'],isAdmin? 1: 0)} variant="primary"> <Cached/> Ver tareas activas </Button>
+                <Button onClick={() => fetchTasks(['completada'],isAdmin? 1: 0)} variant="primary"> <Task /> Ver tareas completadas</Button>  </div>
 
 
             <div className="d-flex gap-2 flex-row justify-content-center align-items-center">

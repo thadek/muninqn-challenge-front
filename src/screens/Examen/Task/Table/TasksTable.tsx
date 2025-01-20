@@ -7,9 +7,10 @@ import { useState } from "react";
 import DeleteTaskModal from "../Modal/DeleteTaskModal";
 import EditTaskModal from "../Modal/EditTaskModal";
 import TaskUsersModal from "../Modal/TaskUsersModal";
+import { toast } from "react-toastify";
 
 export default function TaskTable() {
-    const { tasks, loading } = useTaskStore();
+    const { tasks, loading, error } = useTaskStore();
 
     const [modalState, setModalState] = useState({
         showEditModal: false,
@@ -36,6 +37,10 @@ export default function TaskTable() {
                 <MuniSpinner textoSpinner="Cargando tareas" />
             </>
         );
+    }
+
+    if(error){
+        toast.error( error);
     }
 
     return (

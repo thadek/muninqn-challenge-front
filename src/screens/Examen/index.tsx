@@ -5,13 +5,16 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserWrapper";
 import AdminContainer from "./Admin/AdminContainer";
 import UserContainer from "./User/UserContainer";
-import { Card, Stack } from "@mui/material";
+import { Card, Stack,Switch, FormControlLabel, } from "@mui/material";
+import { useState } from "react";
+import LoginRequired from "./Task/LoginRequired";
 
 
 
 
 const Examen = () => {
     const nav = useNavigate();
+    const [viewAsAdmin, setViewAsAdmin] = useState(true);
 
     const { actions,loading } = useContext(UserContext);
 
@@ -37,27 +40,46 @@ const Examen = () => {
         >
 
 
-            {loading && !usr &&  <div className="alert alert-danger">Es necesario iniciar sesión para visualizar correctamente esta sección.</div>}
+           
 
 
-            {usr && <Card className="p-3">
-                <Stack direction="row" spacing={2} alignItems="center">
-                    <Task sx={{ fontSize: "5vh", color: "#1134c9" }} />
-                    <Stack>
-                        <h3 className="m-0">Sistema gestión de tareas</h3>
-                        <p className="m-0">Estas visualizando la aplicación como : {usr?.name} {usr?.last_name}</p>
+          <div>
+          { !usr && (loading?<></>:<LoginRequired />)}
+
+
+            {usr && (
+                <Card className="p-3">
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <Task sx={{ fontSize: "5vh", color: "#1134c9" }} />
+                        <Stack>
+                            <h3 className="m-0">Sistema gestión de tareas</h3>
+                            <p className="m-0">Estás visualizando la aplicación como: {usr?.name} {usr?.last_name}</p>
+                        </Stack>
                     </Stack>
-                </Stack>
-            </Card>}
+                </Card>
+            )}
 
-            {usr && usr.roles.includes("admin" as any) && <div> 
-                <AdminContainer />
-            </div>}
+  
+            {usr?.roles.includes("admin"  as any) && (
+                <div className="m-3">
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={viewAsAdmin}
+                                onChange={() => setViewAsAdmin(!viewAsAdmin)}
+                            />
+                        }
+                        label={viewAsAdmin ? "Modo Administrador" : "Modo Usuario"}
+                    />
+                </div>
+            )}
 
-            {usr && usr.roles.includes("user" as any) && <div>     
-                <UserContainer />
-            </div>
-            }
+           
+            {usr?.roles.includes("admin" as any) && viewAsAdmin && <AdminContainer />}
+            {usr?.roles.includes("admin" as any) && !viewAsAdmin && <UserContainer isAdmin/>}
+            {usr?.roles.includes("user" as any) && !usr.roles.includes("admin"  as any) && <UserContainer isAdmin={false} />}
+        </div>
+            
 
         </ContainerSecundario>
     )

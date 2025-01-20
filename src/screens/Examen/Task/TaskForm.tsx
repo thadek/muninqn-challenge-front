@@ -7,6 +7,7 @@ import { Input, MuniSpinner, Select } from "../../../components";
 import { schema, priority, status as _status } from "./schema";
 import AsyncUserSelect from "./AsyncUserSelect";
 import { Task } from "./Types/Task";
+import { useEffect } from "react";
 
 export interface HFState {
     prioridad: any | null;
@@ -22,11 +23,11 @@ const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
     const { register, handleSubmit, formState, setValue, watch } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            
             title: task?.title || "",
             description: task?.description || "",
-             
-            users: task?.users || [],
+            users: task?.users?.map((user) => user.id) || [],
+            status: task?.status || "pendiente",    
+            priority: task?.priority || "media", 
         },
     });
 
@@ -34,15 +35,35 @@ const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
 
     const [selectedUsers, setSelectedUsers] = useState<{ value: number; label: string }[]>([]);
 
+    // Cargar valores iniciales en selects y usuarios cuando se edita una tarea
+    useEffect(() => {
+        if (task?.users) {
+            const formattedUsers = task.users.map((user) => ({
+                value: user.id,
+                label: `${user.name} ${user.last_name} - ${user.email} - ${user.dni}`,
+            }));
+            setSelectedUsers(formattedUsers);
+            setValue("users", formattedUsers.map((u) => u.value));
+        }
+
+        if (task?.status) {
+            setValue("status", task.status);
+        }
+
+        if (task?.priority) {
+            setValue("priority", task.priority);
+        }
+    }, [task, setValue]);
+
     const _onSubmit = async (form: any) => {
         setLoading(true);
-        await onSubmit({ ...form, id: task?.id }); 
+        await onSubmit({ ...form, id: task?.id });
         setLoading(false);
     };
 
     return (
         <form onSubmit={handleSubmit(_onSubmit)} className="d-flex flex-column gap-1 p-2">
-           { task?.id && <input type="hidden" {...register("id")} /> }
+            {task?.id && <input type="hidden" {...register("id")} />}
 
             <Input
                 className={{ label: "form-label m-0", input: "form-control form-control" }}
@@ -50,11 +71,7 @@ const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
                 label="Titulo"
                 register={{ ...register("title", { disabled: loading }) }}
             />
-            
 
-
-
-            
             <Input
                 className={{ label: "form-label m-0", input: "form-control form-control" }}
                 invalidMsg={formState.errors.description?.message}
@@ -99,3 +116,5 @@ const TaskForm: RFC = ({ disabled, onSubmit, task = {} }) => {
 };
 
 export default TaskForm;
+
+

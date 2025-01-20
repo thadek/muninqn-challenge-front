@@ -15,7 +15,7 @@ export default function AdminContainer() {
     
 
     useEffect(() => {
-        fetchTasks();
+        fetchTasks([],0);
     }, [refresh]);
 
 
