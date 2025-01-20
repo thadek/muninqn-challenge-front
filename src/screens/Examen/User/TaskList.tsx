@@ -1,6 +1,4 @@
-import { Card, CardContent, CardActions, Typography, Grid, Chip, Box } from '@mui/material';
-import { Button } from 'react-bootstrap';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { Grid } from '@mui/material';
 import { Task } from '../Task/Types/Task';
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserWrapper';
@@ -15,7 +13,7 @@ export default function TaskList({ tasks }: TaskListProps) {
   
   const { actions } = useContext(UserContext);
   const usr = actions.user();
-  const { completeMyTask, loading } = useTaskStore();
+  const { completeMyTask } = useTaskStore();
 
   const handleCompleteMyTask = async (taskId: number) => {
     
@@ -57,7 +55,7 @@ export default function TaskList({ tasks }: TaskListProps) {
           key={task.id}
           task={task}
           handleCompleteMyTask={handleCompleteMyTask}
-          usr={usr}
+          usr={usr as any}
           statusColor={statusColor}
           priorityColor={priorityColor}
         />
