@@ -15,7 +15,7 @@ const UserLayout: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const perfil = ua.persona()
+    const perfil = ua.user()
 
     return (
         <>
@@ -36,11 +36,11 @@ const UserLayout: React.FC = () => {
                         <div className='vr d-none d-sm-block'></div>
                         <div className='d-none d-sm-block text-start'>
                             <small className='nombre-usuario-navbar'>
-                                {perfil.nombre}
+                                {perfil.name} {perfil.last_name}
                             </small>
                             <br />
                             <small className='email-usuario-navbar'>
-                                {perfil.correoElectronico}
+                                {perfil.email}
                             </small>
                         </div>
                         <div className='vr d-none d-sm-block'></div>

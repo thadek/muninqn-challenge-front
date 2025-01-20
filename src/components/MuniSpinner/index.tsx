@@ -15,8 +15,8 @@ const MuniSpinner: RFC = ({
     file = "bola.png",
 }) => {
     return (
-        <div className='d-flex align-items-center justify-content-center gap-4'>
-            {textoSpinner !== "" && <h2>{textoSpinner}</h2>}
+        <div className='d-flex flex-column align-items-center justify-content-center gap-4'>
+      
             <div className='d-flex justify-content-center align-items-center'>
                 <CircularProgress
                     size={circularProgressSize}
@@ -28,6 +28,7 @@ const MuniSpinner: RFC = ({
                     style={{ width: size, height: size, position: "absolute" }}
                 />
             </div>
+            {textoSpinner !== "" && <h5>{textoSpinner}</h5>}
         </div>
     )
 }

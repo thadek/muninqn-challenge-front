@@ -11,14 +11,14 @@ export const initApp = async (ua: Actions) => {
     const token = getParams().token
 
     if (!token) {
-        const data = await postForm("refresh", null, showSpinner)
+        const data = await postForm("auth/refresh", null, showSpinner)
         if (data) {
             ua.setStore(data)
             setStorage(data)
         }
         // retornamos a weblogin o al internal login
     } else {
-        const resp = await axios(token).get("get_user_info")
+        const resp = await axios(token).get("auth/me")
         const { data, error } = resp.data
 
         if (data) {

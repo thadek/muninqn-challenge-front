@@ -2,7 +2,7 @@ import { Permission, Role, Store } from "../interface"
 
 export const initialState: Store = {
     user: null,
-    app_data: null,
+    app_data: { tasks: [] },
     front_types: [],
     token: null,
 }

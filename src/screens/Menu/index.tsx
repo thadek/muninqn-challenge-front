@@ -32,37 +32,18 @@ const Menu = () => {
         name: string;
     }
     const permisosOrigen = [
-        // { name: "origen.prueba" },
         { name: "origen.login" },
+        { name: "origen.examen"}
     ];
     const hasPermission = (permisoName: string): boolean => {
         return true;
     };
 
     return (
-        <BasicContainer titulo='Componente Menu a traves de un modal'>
+        <BasicContainer titulo='Examen Reactjs'>
             
             <div className="p-4">
-                <button
-                    onClick={handleOpen}
-                    className="btn btn-primary py-2"
-                >
-                    Abrir menu
-                </button>
-                <ModalPropio
-                    show={showModal}
-                    onHide={handleClose}
-                    title={() => <h3 style={{ color: 'blue' }}>Modal sin bootstrap</h3>}
-                    footer={() => (
-                        <button
-                            onClick={handleClose}
-                            className="btn btn-danger"
-                        >
-                            Cerrar
-                        </button>
-                    )}
-                >
-                    <p>Este es un contenido de prueba para el componente Modal</p>
+                     
                     <div className='container_menu p-3 rounded'>
                         <div className='bg-body p-3 rounded'>
                             <h2 className='text-center m-0'>Menú Principal</h2>
@@ -85,16 +66,17 @@ const Menu = () => {
                                         </button>
                                     )
                                 })}
-                                <button
+                                
+                                {/* <button
                                     className='btn btn-primary w-100 btn-menu'
-                                    onClick={() => nav("/origenes")}
+                                    onClick={() => nav("/PageExample")}
                                 >
-                                    404 notFound
-                                </button>
+                                    prueba de container
+                                </button> */}
                             </div>
                         </div>
                     </div>
-                </ModalPropio>
+              
             </div>
           
 
